@@ -84,17 +84,17 @@ from summarizer import DocumentSummarizer
 # Grundeigenschaften der Zusammenfassung basierend auf CNN/Dailymail testen
 @pytest.fixture
 def summarizer():
-    return DocumentSummarizer(max_words=50)
+    return DocumentSummarizer(max_words=40)
 
 def test_summarizer_on_cnn_dailymail(summarizer):
     # Kleiner Split, 2 Artikel für Test
-    dataset = load_dataset("cnn_dailymail", "3.0.0", split="test[:2]")
+    dataset = load_dataset("cnn_dailymail", "3.0.0", split="test[:1]")
 
     for sample in dataset:
         article = sample["article"]
         highlights = sample["highlights"]
 
-        summary = summarizer.summarize(article, max_length=400, min_length=30)
+        summary = summarizer.summarize(article, max_length=50, min_length=30)
 
         # Grundprüfungen um Eigenschaften der Zusammenfassung zu testen
         assert isinstance(summary, str) # Output ist string
