@@ -6,6 +6,7 @@ Dieses GitHub Repository enthält alle notwendigen Skripts für den Dokumentenzu
 2. Run the pdf_utils script: python pdf_utils.py
 3. Run the summarizer script: python summarizer.py
 4. Run the app script: python app.py
+5. Login to the App using the PASSWORD = "TESTPW1234"
 
 ### How to test/evaluate 
 1. Run the pytest script: pytest -v
