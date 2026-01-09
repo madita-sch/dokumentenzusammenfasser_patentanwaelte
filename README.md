@@ -12,4 +12,5 @@ Dieses GitHub Repository enthält alle notwendigen Skripts für den Dokumentenzu
 1. Run the pytest script: pytest -v
 2. Run the modellbewertung script fuer ROUGE score: python modellbewertung.py
 
-## Dataset Getestet mit dem CNN/DailyMail Datensatz und basiert auf DistilBART (sshleifer/distilbart-cnn-12-6).
+## Dataset 
+Getestet mit dem CNN/DailyMail Datensatz und basiert auf DistilBART (sshleifer/distilbart-cnn-12-6).
