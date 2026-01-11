@@ -81,26 +81,30 @@ def test_extract_text_invalid_base64():
 # Zusammenfassungs-funktion testen 
 # Funktion aus summarizer.py laden
 from summarizer import DocumentSummarizer
-# Grundeigenschaften der Zusammenfassung basierend auf CNN/Dailymail testen
+
 @pytest.fixture
 def summarizer():
     return DocumentSummarizer(max_words=40)
 
-def test_summarizer_on_cnn_dailymail(summarizer):
-    # Kleiner Split, 2 Artikel für Test
-    dataset = load_dataset("cnn_dailymail", "3.0.0", split="test[:1]")
+# Test Artikel
+TEST_ARTICLE = """
+Artificial intelligence is transforming many industries.
+Companies are increasingly adopting machine learning models
+to automate processes, analyze data, and improve decision-making.
+However, challenges such as data privacy, bias, and transparency
+remain significant concerns for researchers and policymakers.
+"""
+# Summarize-Funktion auf Test Artikel testen
+def test_summarizer_with_text(summarizer):
+    summary = summarizer.summarize(
+        TEST_ARTICLE,
+        max_length=50,
+        min_length=30
+    )
 
-    for sample in dataset:
-        article = sample["article"]
-        highlights = sample["highlights"]
-
-        summary = summarizer.summarize(article, max_length=50, min_length=30)
-
-        # Grundprüfungen um Eigenschaften der Zusammenfassung zu testen
-        assert isinstance(summary, str) # Output ist string
-        assert len(summary) > 0 # Output nicht leer
-        assert summary != article # Output sollte nicht identisch sein
-
+    assert isinstance(summary, str)
+    assert len(summary) > 0
+    assert summary != TEST_ARTICLE
 
 # Zusammenfassung Test: Viele Leerzeichen werden entfernt
 def test_clean_text_handles_multiple_spaces(summarizer):
@@ -124,4 +128,5 @@ def test_chunk_text_splits_correctly(summarizer):
     assert all(isinstance(c, str) for c in chunks)
     assert "eins zwei drei vier fünf" in chunks[0]
     assert "sechs sieben acht neun zehn" in chunks[1]
+
 
